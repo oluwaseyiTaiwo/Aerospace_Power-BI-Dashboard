@@ -1,126 +1,129 @@
-# Enhanced and corrected README with user's real file and task names
-final_readme = """
-# 🛒 CSV to GCP Retail ETL Project
+🚀 Aerospace Power BI Dashboard (Fictitious Data)
 
-This project demonstrates a complete ETL pipeline built using Apache Airflow, Google Cloud Platform (GCP), dbt, and Soda Core. It ingests raw CSV data into Google Cloud Storage, loads it into BigQuery, transforms it into a star schema using dbt, and validates both raw and transformed data using Soda.
+This project showcases an interactive Power BI dashboard designed to visualize and analyze sales, customer, and product performance data for a fictitious aerospace company, Aerospace. It demonstrates advanced data modeling, transformation, and storytelling using Power BI, DAX, and Power Query.
 
----
+📁 Project Structure
 
-## 📌 Project Summary
+PowerBI-Aerospace-Project/
+├── screenshots/
+│   ├── dashboard_overview.png
+│   ├── Customer_Breakdown.png
+│   ├── data_model.png
+│   ├── Regional_Sales_Budget.png
+├── datasets/
+│   ├── aerospace_Budget_Finalized.xlsx
+│   ├── aerospace_Calendar_Finalized.xlsx
+│   ├── aerospace_Customers_Finalized.xlsx
+│   ├── aerospace_Products_Finalized.xlsx
+│   ├── aerospace_Sales_Finalized.xlsx
+├── aerospace_Insights_Fictional dataset.pptx
+├── README.md
+└── aerospace logo.png
 
-- **Project Title**: CSV to GCP Retail ETL Migration
-- **Tools Used**: Airflow, GCS, BigQuery, dbt, Soda Core, Docker, Astro CLI
-- **Pipeline**: Local CSV → GCS → BigQuery (raw) → dbt (transformation) → BigQuery (modeled) → Soda validation
+🧾 Overview
 
----
+Tool: Power BI Desktop
 
-## 🧠 What I Did
+Model: Star Schema
 
-- Set up a Dockerized Airflow environment using Astronomer runtime.
-- Created an Airflow DAG (`retail.py`) that:
-  - Uploads `Online_Retail.csv` and `country_data.csv` to GCS
-  - Loads the files into `raw_retail_data` and `raw_country_data` tables in BigQuery
-  - Runs Soda checks to validate raw schema and values
-  - Executes dbt transformations to create a star schema
-  - Performs data quality checks post-transformation
-- Designed dimension and fact tables in dbt: `customer_dimention_table`, `product_dimention_table`, `datetime_dimention_table`, `Retail_invoice_fact_table`
-- Used Soda Core to ensure high data integrity throughout
-- Prepared the system for integration with Metabase for future dashboarding
+Data Sources: Simulated datasets (Sales, Products, Customers, Budget, Calendar)
 
----
+Metrics: Revenue, Sales Trend, Customer Distribution, Budget vs Actuals, Top Products
 
-## 🔄 Pipeline Flow (Airflow DAG Overview)
 
-### 1. Upload to GCS
-- `Online_Retail.csv` → `raw/Online_Retail.csv`
-- `country_data.csv` → `raw/country_data.csv`
+📊 Dashboard Highlights
 
-### 2. Load to BigQuery
-- `raw/Online_Retail.csv` → `retail.raw_retail_data`
-- `raw/country_data.csv` → `retail.raw_country_data`
+🔹 Dashboard Overview
 
-### 3. Raw Data Quality Checks
-- Performed using `run_load_data_quality_checks()`
-- Checks schema, nulls, data types
+This is the main dashboard with global KPIs, filters by year, country, category, and an at-a-glance view of key performance indicators.
 
-### 4. Data Transformation via dbt
-- `customer_dimention_table.sql`: Builds customer_id and adds ISO codes
-- `product_dimention_table.sql`: Deduplicates and filters product data
-- `datetime_dimention_table.sql`: Extracts time parts from `InvoiceDate`
-- `Retail_invoice_fact_table.sql`: Combines all keys and computes invoice totals
+Total Products Sold, Orders, Sales, Revenue
 
-### 5. Post-Transformation Data Validation
-- Performed using `run_transform_data_quality_checks()`
-- Verifies uniqueness, null handling, and logical constraints
+Filters for Year, Month, Country, City
 
----
+KPI Cards and Donut Charts showing category, industry, and country breakdowns
 
-## 🛠️ Tech Stack
 
-| Tool      | Purpose                                |
-|-----------|----------------------------------------|
-| Airflow   | Orchestrating ETL workflows            |
-| GCS       | Cloud-based raw data storage           |
-| BigQuery  | Scalable cloud data warehouse          |
-| dbt       | SQL-based data modeling                |
-| Soda Core | Data validation and quality monitoring |
-| Docker    | Local development environment          |
-| Astro CLI | Manages and deploys Airflow projects   |
+🔹 Sales Trend by Product Category
 
----
+A monthly trend line tracking performance for Aircraft and Services categories.
 
-## 📊 Data Models Overview
+Seasonal dips and spikes clearly visible
 
-### `customer_dimention_table`
-- Creates `customer_id` from `CustomerID + Country`
-- Adds country ISO from `raw_country_data`
+Useful for detecting underperforming months or budgeting misalignments
 
-### `product_dimention_table`
-- Unique `product_id` from `StockCode + Description + UnitPrice`
-- Filters for valid products only
 
-### `datetime_dimention_table`
-- Parses multiple `InvoiceDate` formats
-- Extracts year, month, day, hour, minute, weekday
+🔹 Total Sales by Product and Industry
 
-### `Retail_invoice_fact_table`
-- Joins all dimensions and computes invoice totals
-- Surrogate keys ensure consistency across joins
+This visual highlights how each product contributes to industry-wise revenue.
+
+Stack bar chart per industry (Defense, Government, Aviation, Private Charters)
+
+Products like Global 7500 and Annual Maintenance drive consistent revenue
+
+
+🧹 Data Cleaning & Transformation
+
+Performed in Power Query:
+
+Renamed columns for clarity and consistency
+
+Removed nulls and duplicates
+
+Formatted dates to match reporting standards
+
+Created custom columns for Month, Year, and Month_Short for grouping
+
+Ensured categorical fields (e.g., Product Category, Customer Type) were standardized for filtering
 
 ---
+🧩 Data Modeling (Star Schema)
+Fact Table: Sales
 
-## ✅ Soda Checks Summary
+Dimension Tables: Customers, Products, Calendar, Budget
 
-| Table                           | Check Types                                  |
-|---------------------------------|-----------------------------------------------|
-| `raw_retail_data`               | Schema validation, missing values, data types |
-| `customer_dimention_table`      | Uniqueness, null checks, schema integrity     |
-| `product_dimention_table`       | Non-negative pricing, duplicates              |
-| `datetime_dimention_table`      | Weekday ranges, null handling                 |
-| `Retail_invoice_fact_table`     | Positive total amounts, referential integrity |
----
+Relationships are 1-to-many (e.g., Customers → Sales)
+
+Time intelligence enabled via Calendar table
 
 
-# 🧪 How to Run
-# Start development environment
-- astro dev start
+🖼 Report Screenshots
 
-# Run Airflow task
-- airflow tasks test retail upload_retail_csv_to_gcs 2025-01-01
+You can add screenshots of your report visuals here to visually showcase your dashboard design and insights:
 
-# Run dbt models
-- source /usr/local/airflow/dbt_venv/bin/activate
-- cd include/dbt
-- dbt run --profiles-dir /usr/local/airflow/include/dbt/
-
-# Run Soda validation
-- source /usr/local/airflow/soda_venv/bin/activate
-- soda scan -d retail -c include/soda/configuration.yml include/soda/checks/*
+🔸 Report Page 1: Overview Dashboard
+![Dashboard Overview](screenshots/dashboard_overview.png)
 
 
-# 🎯 Final Outcome
-- ✅ Successfully ingested and modeled retail data from CSVs into BigQuery
-- ✅ Implemented a robust, reusable Airflow DAG for data orchestration
-- ✅ Built dimensional data models using dbt following best practices
-- ✅ Ensured high data quality using Soda Core validations
-- ✅ Created analytics-ready tables for future reporting and BI dashboards
+🔸 Report Page 2: Customer Breakdown
+![Customer Dashboard](screenshots/Customer_Breakdown.png)
+
+
+🔸 Report Page 3: Regional Sales & Budget
+![Regional Sales_&_Budget Dashboard](screenshots/Regional_Sales_Budget.png)
+
+
+🔸 Report Page 4: Data Model in Power BI
+![Data Model](screenshots/data_model.png)
+
+
+🧠 Insights & Findings
+
+- USA contributes the largest revenue share (~39.5%)
+
+- Corporate Customers dominate with ~38bn in sales
+
+- Top Products: Global 7500, Global 6500, and Pilot Training
+
+- Budget and actual sales show divergence in Q2 and Q3
+
+
+🛠 Tools & Techniques Used
+
+- Power BI Desktop: Report creation, modeling, and visualizations
+
+- Power Query (M): Data cleaning and prep
+
+- DAX: For calculated columns and KPIs (e.g., Average Order Value, Total Sales)
+
+- Bing Maps: For geospatial visuals (Sales by City)
