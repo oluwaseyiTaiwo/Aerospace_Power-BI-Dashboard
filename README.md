@@ -2,24 +2,6 @@
 
 This project showcases an interactive Power BI dashboard designed to visualize and analyze sales, customer, and product performance data for a fictitious aerospace company, Aerospace. It demonstrates advanced data modeling, transformation, and storytelling using Power BI, DAX, and Power Query.
 
-📁 Project Structure
-
-PowerBI-Aerospace-Project/
-├── screenshots/
-│   ├── dashboard_overview.png
-│   ├── Customer_Breakdown.png
-│   ├── data_model.png
-│   ├── Regional_Sales_Budget.png
-├── datasets/
-│   ├── aerospace_Budget_Finalized.xlsx
-│   ├── aerospace_Calendar_Finalized.xlsx
-│   ├── aerospace_Customers_Finalized.xlsx
-│   ├── aerospace_Products_Finalized.xlsx
-│   ├── aerospace_Sales_Finalized.xlsx
-├── aerospace_Insights_Fictional dataset.pptx
-├── README.md
-└── aerospace logo.png
-
 🧾 Overview
 
 Tool: Power BI Desktop
